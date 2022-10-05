@@ -1,0 +1,40 @@
+<div class="container fileUploadWrapper">
+  <div class="row">
+    <!-- Progress Bar -->
+    <div class="col-md-12" *ngIf="progress">
+      <div class="progress form-group">
+        <div
+          class="progress-bar progress-bar-striped bg-success"
+          role="progressbar"
+          [style.width.%]="progress"
+        ></div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div
+        class="fileupload"
+        appDragDropFileUpload
+        (click)="fileField.click()"
+        (fileDropped)="onDropFile($event)"
+      >
+        <span class="ddinfo">Choose a file or drag here</span>
+        <input
+          type="file"
+          name="avatars"
+          #fileField
+          hidden
+          multiple
+          (change)="onFileBrowse($event)"
+        />
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="image-list" *ngFor="let file of fileArr; let i = index">
+        <p>{{ file.name }}</p>
+      </div>
+    </div>
+    <button (click)="processFiles()">Scan</button>
+    <button (click)="reload()">Reload</button>
+    <div *ngIf="msg"><p [innerText]='msg'></p></div>
+  </div>
+</div>
